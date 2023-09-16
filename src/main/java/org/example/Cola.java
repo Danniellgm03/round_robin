@@ -11,9 +11,8 @@ public class Cola<T extends Proceso>{
     private ArrayList<T> cola = new ArrayList<T>();
     public Cola(){ }
 
-
-    public void addToCola(T elem){
-        cola.add(elem);
+    public boolean addToCola(T elem){
+        return cola.add(elem);
     }
 
     public void sort(){
@@ -22,11 +21,10 @@ public class Cola<T extends Proceso>{
 
     public T sacar(){
         T elem_deleted = cola.remove(0);
-        elem_deleted.fecha_creacion = LocalDate.now();
-        elem_deleted.fecha2 = LocalDateTime.now();
-        elem_deleted.quantum -= 1;
+        elem_deleted.setFecha_creacion(LocalDateTime.now());
+        elem_deleted.setQuantum(elem_deleted.getQuantum() - 1);
 
-        if(elem_deleted.quantum > 0){
+        if(elem_deleted.getQuantum() > 0){
             cola.add(elem_deleted);
         }
         return elem_deleted;
