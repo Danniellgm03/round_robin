@@ -1,18 +1,16 @@
 package org.example;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.UUID;
 
 public class Proceso implements Comparable<Proceso> {
-    UUID uuid = UUID.randomUUID();
-    public int prioridad;
-    LocalDate fecha_creacion = LocalDate.now();
-    int quantum;
+    private final UUID uuid = UUID.randomUUID();
+    private int prioridad;
+    private int quantum;
 
-    LocalDateTime fecha2 = LocalDateTime.now();
+    private LocalDateTime fecha_creacion = LocalDateTime.now();
 
     public Proceso(){
         this.prioridad = (int)(Math.random() * (8 - 0) + 1);
@@ -24,9 +22,8 @@ public class Proceso implements Comparable<Proceso> {
         return "Proceso{" +
                 "uuid=" + uuid +
                 ", prioridad=" + prioridad +
-                ", fecha_creacion=" + fecha_creacion.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()  +
+                ", fecha_creacion=" + fecha_creacion  +
                 ", quantum=" + quantum  +
-                ", fecha2=" + fecha2.getNano()  +
                 '}';
     }
 
