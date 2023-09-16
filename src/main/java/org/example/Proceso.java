@@ -43,4 +43,32 @@ public class Proceso implements Comparable<Proceso> {
             return -1;
         }
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public int getQuantum() {
+        return quantum;
+    }
+
+    public LocalDateTime getFecha_creacion() {
+        return fecha_creacion;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public void setQuantum(int quantum) {
+        this.quantum = quantum;
+    }
+
+    public void setFecha_creacion(LocalDateTime fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
+    }
 }
