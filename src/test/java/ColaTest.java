@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ColaTest {
 
     @Test
-    @DisplayName("Test to add proccess to cola and check if it is empty")
+    @DisplayName("Test de añadir un proceso a la cola")
     public void testAddToCola() {
         Cola cola = new Cola();
         assertEquals(true, cola.addToCola(new Proceso()));
@@ -22,17 +22,17 @@ public class ColaTest {
     public void testSacarCola1(){
         Cola cola = new Cola();
         Proceso p1 = new Proceso();
-        p1.setPrioridad(8);
+        p1.setPriority(8);
         Proceso p2 = new Proceso();
-        p2.setPrioridad(2);
+        p2.setPriority(2);
         Proceso p3 = new Proceso();
-        p3.setPrioridad(4);
+        p3.setPriority(4);
         cola.addToCola(p1);
         cola.addToCola(p2);
+        cola.addToCola(p3);
 
-        cola.sort();
-        Proceso proceso_sacado = cola.sacar();
-        assertEquals(p1, proceso_sacado);
+        Proceso proceso_sacado = cola.extract();
+        assertEquals(p2, proceso_sacado);
     }
 
     @Test
@@ -40,21 +40,18 @@ public class ColaTest {
     public void testSacarCola2(){
         Cola cola = new Cola();
         Proceso p1 = new Proceso();
-        p1.setPrioridad(3);
+        p1.setPriority(3);
         Proceso p2 = new Proceso();
-        p2.setPrioridad(4);
+        p2.setPriority(4);
         Proceso p3 = new Proceso();
-        p3.setPrioridad(3);
-        p3.setFecha_creacion(LocalDateTime.now().minusSeconds(10));
+        p3.setPriority(3);
+        p3.setDate_last_modify(LocalDateTime.now().minusSeconds(10));
         cola.addToCola(p1);
         cola.addToCola(p2);
         cola.addToCola(p3);
-
-        cola.sort();
-        Proceso proceso_sacado = cola.sacar();
+        Proceso proceso_sacado = cola.extract();
         assertEquals(p3, proceso_sacado);
-        cola.sort();
-        proceso_sacado = cola.sacar();
+        proceso_sacado = cola.extract();
         assertEquals(p1, proceso_sacado);
     }
 
@@ -63,30 +60,28 @@ public class ColaTest {
     public void testSacarCola3(){
         Cola cola = new Cola();
         Proceso p1 = new Proceso();
-        p1.setPrioridad(3);
+        p1.setPriority(3);
+        p1.setQuantum(10);
         Proceso p2 = new Proceso();
-        p2.setPrioridad(4);
+        p2.setPriority(4);
         Proceso p3 = new Proceso();
-        p3.setPrioridad(3);
+        p3.setPriority(3);
+        p3.setQuantum(10);
         Proceso p4 = new Proceso();
-        p4.setPrioridad(1);
+        p4.setPriority(1);
         p4.setQuantum(1);
         cola.addToCola(p1);
         cola.addToCola(p2);
         cola.addToCola(p3);
         cola.addToCola(p4);
 
-        cola.sort();
-        Proceso proceso_sacado = cola.sacar();
+        Proceso proceso_sacado = cola.extract();
         assertEquals(p4, proceso_sacado);
-        cola.sort();
-        proceso_sacado = cola.sacar();
+        proceso_sacado = cola.extract();
         assertEquals(p1, proceso_sacado);
-        cola.sort();
-        proceso_sacado = cola.sacar();
+        proceso_sacado = cola.extract();
         assertEquals(p3, proceso_sacado);
-        cola.sort();
-        proceso_sacado = cola.sacar();
+        proceso_sacado = cola.extract();
         assertEquals(p1, proceso_sacado);
     }
 
@@ -96,10 +91,10 @@ public class ColaTest {
         Cola cola = new Cola();
         Proceso p1 = new Proceso();
         cola.addToCola(p1);
-        LocalDateTime fecha = p1.getFecha_creacion();
+        LocalDateTime fecha = p1.getDate_last_modify();
         int quantum = p1.getQuantum();
-        Proceso proceso_sacado = cola.sacar();
-        assertTrue(fecha.isBefore(proceso_sacado.getFecha_creacion()));
+        Proceso proceso_sacado = cola.extract();
+        assertTrue(fecha.isBefore(proceso_sacado.getDate_last_modify()));
         assertTrue(quantum > proceso_sacado.getQuantum());
     }
 
@@ -111,8 +106,7 @@ public class ColaTest {
         Proceso p1 = new Proceso();
         p1.setQuantum(1);
         cola.addToCola(p1);
-        assertFalse(cola.isEmpty());
-        cola.sacar();
+        cola.extract();
         assertTrue(cola.isEmpty());
     }
 
